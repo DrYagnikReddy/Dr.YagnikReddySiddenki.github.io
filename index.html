@@ -1,70 +1,458 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" class="scroll-smooth">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Dr. Your Name | Portfolio</title>
+    <title>Dr. John Doe | Physician Portfolio</title>
+    
+    <!-- SEO & Discoverability -->
+    <meta name="description" content="Professional portfolio of Dr. John Doe, an aspiring Neurology Resident focusing on Stroke and Neurocritical Care.">
+    <meta name="keywords" content="Neurology, Residency, MBBS, USMLE, Clinical Research, Physician, Stroke">
+    <meta name="author" content="Dr. John Doe">
+    <link rel="canonical" href="https://yourdomain.com/">
+    
+    <!-- Structured Data (Person Schema) -->
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "Physician",
+      "name": "Dr. John Doe",
+      "jobTitle": "Neurology Resident Applicant",
+      "alumniOf": "Name of Medical University",
+      "knowsAbout": ["Neurology", "Clinical Research", "Stroke", "Evidence-Based Medicine"]
+    }
+    </script>
+
+    <!-- Google Fonts: Inter (Restrained usage) -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+    
+    <!-- Phosphor Icons -->
+    <script src="https://unpkg.com/@phosphor-icons/web"></script>
+    
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    
+    <!-- Tailwind Configuration (Academic Design System) -->
+    <script>
+        tailwind.config = {
+            darkMode: 'class', 
+            theme: {
+                extend: {
+                    fontFamily: {
+                        sans: ['Inter', 'sans-serif'],
+                    },
+                    colors: {
+                        medicalNavy: '#111827', /* Gray 900 - more neutral than blue-navy */
+                        royalBlue: '#2563eb',  /* Blue 600 - used very sparingly for links */
+                        charcoal: '#374151',   /* Gray 700 */
+                        lightGray: '#f9fafb',  /* Gray 50 */
+                        borderLight: '#e5e7eb', /* Gray 200 */
+                        darkCard: '#1f2937',   /* Gray 800 */
+                        darkBg: '#111827',     /* Gray 900 */
+                        borderDark: '#374151', /* Gray 700 */
+                    },
+                    boxShadow: {
+                        /* Flatter, subtle shadows mimicking paper rather than floating UI */
+                        'academic': '0 1px 3px rgba(0,0,0,0.05), 0 1px 2px rgba(0,0,0,0.03)',
+                        'academic-dark': '0 1px 3px rgba(0,0,0,0.2), 0 1px 2px rgba(0,0,0,0.1)',
+                    }
+                }
+            }
+        }
+    </script>
 
     <style>
-        body{
-            margin:0;
-            font-family:Arial, Helvetica, sans-serif;
-            background:#f4f8fb;
-            color:#1f2937;
+        /* Restrained Nav Styling */
+        nav { transition: background-color 0.3s ease, border-color 0.3s ease; }
+
+        /* Subtle Fade - No sliding, no bouncing. Just a calm appearance. */
+        @media (prefers-reduced-motion: no-preference) {
+            .reveal-on-scroll {
+                opacity: 0;
+                transform: translateY(8px);
+                transition: opacity 0.6s ease-out, transform 0.6s ease-out;
+            }
+            .reveal-on-scroll.is-visible {
+                opacity: 1;
+                transform: translateY(0);
+            }
         }
 
-        .hero{
-            height:100vh;
-            display:flex;
-            justify-content:center;
-            align-items:center;
-            flex-direction:column;
-            text-align:center;
-            background:linear-gradient(135deg,#0f4c81,#1d7abf);
-            color:white;
-        }
-
-        h1{
-            font-size:60px;
-            margin-bottom:10px;
-        }
-
-        h2{
-            font-weight:300;
-            margin-top:0;
-        }
-
-        .btn{
-            margin-top:30px;
-            background:white;
-            color:#0f4c81;
-            padding:15px 30px;
-            text-decoration:none;
-            border-radius:8px;
-            font-weight:bold;
-            transition:.3s;
-        }
-
-        .btn:hover{
-            background:#dfefff;
-        }
-
+        /* Clean active link state */
+        .nav-link.active { color: #111827; font-weight: 500; border-bottom: 2px solid #2563eb; }
+        .dark .nav-link.active { color: #f9fafb; border-bottom: 2px solid #3b82f6; }
+        
+        /* Mobile Scrollable Nav Hide Scrollbar */
+        .hide-scrollbar::-webkit-scrollbar { display: none; }
+        .hide-scrollbar { -ms-overflow-style: none; scrollbar-width: none; }
     </style>
-
 </head>
+<body class="bg-white dark:bg-darkBg text-charcoal dark:text-gray-300 font-sans antialiased transition-colors duration-300">
 
-<body>
+    <!-- Top Navigation (Sticky & Always Visible) -->
+    <nav id="navbar" class="fixed w-full z-50 top-0 bg-white/95 dark:bg-darkBg/95 backdrop-blur-sm border-b border-borderLight dark:border-borderDark transition-colors duration-300">
+        <div class="flex justify-between items-center py-3 px-6 md:px-12">
+            <a href="#home" class="text-lg font-semibold text-medicalNavy dark:text-white tracking-tight flex items-center gap-2">
+                Dr. John Doe
+            </a>
+            <div class="flex items-center gap-6">
+                <!-- Desktop Links -->
+                <div class="hidden md:flex space-x-8 text-sm font-medium text-gray-500 dark:text-gray-400">
+                    <a href="#home" class="nav-link py-1 hover:text-medicalNavy dark:hover:text-white transition-colors">Home</a>
+                    <a href="#journey" class="nav-link py-1 hover:text-medicalNavy dark:hover:text-white transition-colors">Journey</a>
+                    <a href="#experience" class="nav-link py-1 hover:text-medicalNavy dark:hover:text-white transition-colors">Experience</a>
+                    <a href="#research" class="nav-link py-1 hover:text-medicalNavy dark:hover:text-white transition-colors">Research</a>
+                    <a href="#cv" class="nav-link py-1 hover:text-medicalNavy dark:hover:text-white transition-colors">CV & Contact</a>
+                </div>
+                <!-- Dark Mode Toggle -->
+                <button id="darkModeToggle" class="text-gray-400 hover:text-medicalNavy dark:hover:text-white transition-colors focus:outline-none" aria-label="Toggle Dark Mode">
+                    <i class="ph ph-moon text-xl" id="theme-icon-moon"></i>
+                    <i class="ph ph-sun text-xl hidden" id="theme-icon-sun"></i>
+                </button>
+            </div>
+        </div>
+        
+        <!-- Mobile Links (Scrollable horizontally) -->
+        <div class="md:hidden flex overflow-x-auto hide-scrollbar space-x-6 px-6 py-2 border-t border-borderLight dark:border-borderDark text-sm font-medium text-gray-500 dark:text-gray-400">
+            <a href="#home" class="nav-link py-1 whitespace-nowrap hover:text-medicalNavy dark:hover:text-white transition-colors">Home</a>
+            <a href="#journey" class="nav-link py-1 whitespace-nowrap hover:text-medicalNavy dark:hover:text-white transition-colors">Journey</a>
+            <a href="#experience" class="nav-link py-1 whitespace-nowrap hover:text-medicalNavy dark:hover:text-white transition-colors">Experience</a>
+            <a href="#research" class="nav-link py-1 whitespace-nowrap hover:text-medicalNavy dark:hover:text-white transition-colors">Research</a>
+            <a href="#cv" class="nav-link py-1 whitespace-nowrap hover:text-medicalNavy dark:hover:text-white transition-colors">Contact</a>
+        </div>
+    </nav>
 
-<section class="hero">
+    <!-- Narrative 1: Hero (Calm & Authoritative) -->
+    <section id="home" class="relative min-h-[85vh] flex items-center pt-32 pb-12 px-6 md:px-12 section-scroll">
+        <div class="max-w-5xl mx-auto grid md:grid-cols-12 gap-12 items-center w-full">
+            
+            <div class="md:col-span-8 space-y-6 reveal-on-scroll">
+                
+                <!-- Core Identity -->
+                <div class="space-y-2">
+                    <h1 class="text-4xl md:text-5xl font-semibold text-medicalNavy dark:text-white leading-tight tracking-tight">
+                        Neurology Residency Applicant
+                    </h1>
+                    <h2 class="text-xl md:text-2xl font-light text-gray-600 dark:text-gray-300">
+                        John Doe, MBBS
+                    </h2>
+                </div>
 
-<h1>Dr. Your Name</h1>
+                <!-- Mission -->
+                <p class="text-base text-gray-600 dark:text-gray-400 leading-relaxed max-w-2xl font-light">
+                    Dedicated to advancing neurological care through clinical excellence, rigorous academic inquiry, and evidence-based medicine. Focused on stroke management and neurocritical care.
+                </p>
+                
+                <!-- Clean Action Row -->
+                <div class="flex flex-wrap gap-4 pt-4">
+                    <a href="#cv" class="inline-flex items-center justify-center bg-medicalNavy dark:bg-white text-white dark:text-medicalNavy px-6 py-2.5 rounded text-sm font-medium hover:bg-gray-800 dark:hover:bg-gray-100 transition-colors">
+                        View Curriculum Vitae
+                    </a>
+                    <a href="#cv" class="inline-flex items-center justify-center bg-transparent border border-borderLight dark:border-borderDark text-medicalNavy dark:text-white px-6 py-2.5 rounded text-sm font-medium hover:bg-gray-50 dark:hover:bg-gray-800 transition-colors">
+                        Contact Details
+                    </a>
+                </div>
+            </div>
 
-<h2>MBBS • USMLE Step 1 PASS • Future Neurology Resident</h2>
+            <!-- Static, Flat Photo Container -->
+            <div class="md:col-span-4 reveal-on-scroll w-full max-w-[280px] mx-auto md:mx-0">
+                <div class="w-full aspect-[3/4] bg-gray-100 dark:bg-darkCard border border-borderLight dark:border-borderDark rounded overflow-hidden shadow-academic dark:shadow-none flex items-center justify-center text-gray-400">
+                    <div class="text-center">
+                        <i class="ph ph-image text-3xl mb-2 font-light"></i>
+                        <span class="block text-xs font-medium uppercase tracking-widest">Professional Photo</span>
+                    </div>
+                </div>
+            </div>
+            
+        </div>
+    </section>
 
-<a class="btn" href="#">Download CV</a>
+    <!-- Narrative 2: Proof of Seriousness (Quick Scanning) -->
+    <section class="py-10 border-y border-borderLight dark:border-borderDark bg-lightGray dark:bg-darkBg">
+        <div class="max-w-5xl mx-auto px-6 md:px-12">
+            <div class="grid grid-cols-2 md:grid-cols-4 gap-6 divide-x-0 md:divide-x divide-borderLight dark:divide-borderDark text-left md:text-center reveal-on-scroll">
+                
+                <div class="space-y-1 md:pr-4">
+                    <p class="text-xs text-gray-500 dark:text-gray-400 uppercase tracking-wider">USMLE Step 1</p>
+                    <p class="text-lg font-medium text-medicalNavy dark:text-white">PASS</p>
+                </div>
+                
+                <div class="space-y-1 md:px-4">
+                    <p class="text-xs text-gray-500 dark:text-gray-400 uppercase tracking-wider">Research Projects</p>
+                    <p class="text-lg font-medium text-medicalNavy dark:text-white">3 Active/Published</p>
+                </div>
+                
+                <div class="space-y-1 md:px-4">
+                    <p class="text-xs text-gray-500 dark:text-gray-400 uppercase tracking-wider">Clinical Rotations</p>
+                    <p class="text-lg font-medium text-medicalNavy dark:text-white">24 Months</p>
+                </div>
+                
+                <div class="space-y-1 md:pl-4">
+                    <p class="text-xs text-gray-500 dark:text-gray-400 uppercase tracking-wider">ECFMG Status</p>
+                    <p class="text-lg font-medium text-medicalNavy dark:text-white">Certified</p>
+                </div>
 
-</section>
+            </div>
+        </div>
+    </section>
 
+    <!-- Narrative 3: The Journey (Academic flow) -->
+    <section id="journey" class="py-20 bg-white dark:bg-darkBg px-6 md:px-12 section-scroll border-b border-borderLight dark:border-borderDark">
+        <div class="max-w-3xl mx-auto reveal-on-scroll mb-16">
+            <h2 class="text-sm font-semibold text-medicalNavy dark:text-white uppercase tracking-wider mb-4">Executive Summary</h2>
+            <div class="text-base text-gray-600 dark:text-gray-400 space-y-4 font-light leading-relaxed">
+                <p>
+                    I am a medical professional driven by a profound fascination with the central nervous system. My journey began at [Medical School Name], where I developed a strong foundation in clinical medicine and an enduring interest in the complexities of acute neurological care.
+                </p>
+                <p>
+                    Currently, I am actively involved in clinical research focusing on neurocritical care outcomes. My immediate objective is to match into a rigorous Neurology Residency program where I can hone my clinical acumen, contribute to evidence-based literature, and specialize in stroke management.
+                </p>
+            </div>
+        </div>
+
+        <!-- Academic Timeline (Restrained) -->
+        <div class="max-w-3xl mx-auto reveal-on-scroll">
+            <h3 class="text-sm font-semibold text-medicalNavy dark:text-white uppercase tracking-wider mb-6">Academic Timeline</h3>
+            
+            <div class="space-y-8 relative before:absolute before:inset-0 before:ml-2.5 before:-translate-x-px before:h-full before:w-px before:bg-borderLight dark:before:bg-borderDark">
+                
+                <div class="relative flex items-start gap-6">
+                    <div class="w-5 h-5 rounded-full bg-lightGray dark:bg-darkCard border-2 border-borderLight dark:border-borderDark shrink-0 z-10 mt-1"></div>
+                    <div>
+                        <span class="text-sm text-gray-500 dark:text-gray-400 block mb-1">2026</span>
+                        <h4 class="font-medium text-medicalNavy dark:text-white text-base">USMLE Step 1</h4>
+                        <p class="text-gray-600 dark:text-gray-400 text-sm mt-1 font-light">Successfully passed. Demonstrated a comprehensive grasp of foundational medical sciences and pathology.</p>
+                    </div>
+                </div>
+
+                <div class="relative flex items-start gap-6">
+                    <div class="w-5 h-5 rounded-full bg-lightGray dark:bg-darkCard border-2 border-borderLight dark:border-borderDark shrink-0 z-10 mt-1"></div>
+                    <div>
+                        <span class="text-sm text-gray-500 dark:text-gray-400 block mb-1">2024</span>
+                        <h4 class="font-medium text-medicalNavy dark:text-white text-base">MBBS Graduate</h4>
+                        <p class="text-gray-600 dark:text-gray-400 text-sm mt-1 font-light">[Name of Medical University], [Country]. Graduated with clinical honors in Internal Medicine and Anatomy.</p>
+                    </div>
+                </div>
+                
+            </div>
+        </div>
+    </section>
+
+    <!-- Narrative 4: Evidence of Practice (Clinical) -->
+    <section id="experience" class="py-20 bg-lightGray dark:bg-darkBg px-6 md:px-12 section-scroll border-b border-borderLight dark:border-borderDark">
+        <div class="max-w-4xl mx-auto reveal-on-scroll">
+            <h2 class="text-sm font-semibold text-medicalNavy dark:text-white uppercase tracking-wider mb-8">Clinical Experience</h2>
+            
+            <div class="space-y-6">
+                <!-- Flat Card 1 -->
+                <div class="bg-white dark:bg-darkCard p-6 rounded border border-borderLight dark:border-borderDark shadow-academic dark:shadow-none">
+                    <div class="flex flex-col md:flex-row md:justify-between md:items-start mb-2">
+                        <div>
+                            <h3 class="font-medium text-lg text-medicalNavy dark:text-white">Neurology Observership</h3>
+                            <p class="text-gray-500 dark:text-gray-400 text-sm">Massachusetts General Hospital, MA | Preceptor: Dr. Jane Smith, MD</p>
+                        </div>
+                        <span class="text-gray-500 dark:text-gray-400 text-sm mt-1 md:mt-0 whitespace-nowrap">Aug 2025</span>
+                    </div>
+                    <p class="text-gray-600 dark:text-gray-300 text-sm leading-relaxed mt-3 font-light">
+                        Observed daily rounds in the neurocritical care unit and stroke center. Assisted in EMR-based stroke workflow documentation, acute triage coordination, and post-tPA protocol adherence under attending supervision.
+                    </p>
+                </div>
+
+                <!-- Flat Card 2 -->
+                <div class="bg-white dark:bg-darkCard p-6 rounded border border-borderLight dark:border-borderDark shadow-academic dark:shadow-none">
+                    <div class="flex flex-col md:flex-row md:justify-between md:items-start mb-2">
+                        <div>
+                            <h3 class="font-medium text-lg text-medicalNavy dark:text-white">Rotating Internship</h3>
+                            <p class="text-gray-500 dark:text-gray-400 text-sm">University Hospital, [Location]</p>
+                        </div>
+                        <span class="text-gray-500 dark:text-gray-400 text-sm mt-1 md:mt-0 whitespace-nowrap">2023 - 2024</span>
+                    </div>
+                    <p class="text-gray-600 dark:text-gray-300 text-sm leading-relaxed mt-3 font-light">
+                        Completed a 12-month comprehensive clinical rotation. Dedicated 2 months to inpatient Neurology, gaining foundational proficiency in acute patient triage, detailed neurological examinations, and supervised basic procedures.
+                    </p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Narrative 5: Academic Output (Research) -->
+    <section id="research" class="py-20 bg-white dark:bg-darkBg px-6 md:px-12 section-scroll border-b border-borderLight dark:border-borderDark">
+        <div class="max-w-4xl mx-auto reveal-on-scroll">
+            <h2 class="text-sm font-semibold text-medicalNavy dark:text-white uppercase tracking-wider mb-8">Research & Publications</h2>
+            
+            <!-- Primary Investigation -->
+            <div class="mb-10">
+                <h3 class="text-xs font-semibold text-gray-500 dark:text-gray-400 uppercase tracking-widest mb-3">Primary Investigation</h3>
+                <div class="bg-lightGray dark:bg-darkCard p-6 border-l-4 border-royalBlue dark:border-blue-500 rounded-r border-y border-r border-borderLight dark:border-borderDark">
+                    <span class="inline-block px-2 py-0.5 bg-gray-200 dark:bg-gray-700 text-gray-700 dark:text-gray-300 text-xs rounded mb-3">Published • First Author</span>
+                    <h4 class="font-medium text-lg text-medicalNavy dark:text-white mb-2">Biomarkers in Acute Ischemic Stroke</h4>
+                    <p class="text-sm text-gray-600 dark:text-gray-300 font-light mb-4">
+                        Investigated the correlation between elevated serum inflammatory markers and 90-day functional outcomes in AIS patients receiving endovascular therapy. Highlights the prognostic value of simple serological tests in post-stroke recovery.
+                    </p>
+                    <p class="text-xs text-gray-500 dark:text-gray-400"><span class="font-medium">Role:</span> Data Collection, Statistical Analysis (SPSS) | <span class="font-medium">Mentor:</span> Dr. Alan Turing, MD</p>
+                </div>
+            </div>
+
+            <!-- Supporting Contributions -->
+            <h3 class="text-xs font-semibold text-gray-500 dark:text-gray-400 uppercase tracking-widest mb-3">Supporting Contributions</h3>
+            <div class="space-y-4">
+                <div class="p-4 rounded border border-borderLight dark:border-borderDark hover:bg-lightGray dark:hover:bg-darkCard transition-colors">
+                    <p class="text-sm text-gray-700 dark:text-gray-300 leading-relaxed font-light mb-2">
+                        <strong>Doe, J.</strong>, Smith, A., & Turing, A. (2025). <em>Elevated Serum Inflammatory Markers Predict Poor 90-Day Outcomes Following Endovascular Thrombectomy</em>. Journal of Stroke Cerebrovascular Diseases, 45(2), 112-118.
+                    </p>
+                    <div class="flex gap-4">
+                        <a href="#" class="text-xs font-medium text-royalBlue dark:text-blue-400 hover:underline">DOI</a>
+                        <a href="#" class="text-xs font-medium text-royalBlue dark:text-blue-400 hover:underline">PubMed</a>
+                        <a href="#" class="text-xs font-medium text-royalBlue dark:text-blue-400 hover:underline">PDF</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Narrative 6: Authority Framing (CV & Contact) -->
+    <section id="cv" class="py-20 px-6 md:px-12 bg-lightGray dark:bg-darkBg section-scroll">
+        <div class="max-w-4xl mx-auto grid md:grid-cols-2 gap-12 reveal-on-scroll">
+            
+            <!-- Academic CV Box -->
+            <div>
+                <h2 class="text-sm font-semibold text-medicalNavy dark:text-white uppercase tracking-wider mb-6">Curriculum Vitae</h2>
+                <div class="bg-white dark:bg-darkCard p-6 border border-borderLight dark:border-borderDark rounded shadow-academic dark:shadow-none">
+                    <div class="flex items-start gap-4 mb-4">
+                        <i class="ph ph-file-text text-3xl text-gray-400"></i>
+                        <div>
+                            <h3 class="font-medium text-medicalNavy dark:text-white">Academic CV</h3>
+                            <p class="text-xs text-gray-500 dark:text-gray-400 mt-1">Updated: June 2026 • PDF Format</p>
+                        </div>
+                    </div>
+                    <p class="text-sm text-gray-600 dark:text-gray-300 font-light mb-6">
+                        Includes complete details on education, clinical rotations, research methodology, publications, and professional affiliations.
+                    </p>
+                    <!-- FIX: Changed href to point to the file and added download attribute -->
+                    <a href="path/to/your/cv.pdf" download="Dr_John_Doe_CV.pdf" class="inline-flex w-full justify-center items-center gap-2 bg-white dark:bg-darkBg border border-borderLight dark:border-borderDark text-medicalNavy dark:text-white px-4 py-2 rounded text-sm font-medium hover:bg-gray-50 dark:hover:bg-gray-800 transition-colors">
+                        Download PDF
+                    </a>
+                </div>
+            </div>
+
+            <!-- Contact Protocol -->
+            <div>
+                <h2 class="text-sm font-semibold text-medicalNavy dark:text-white uppercase tracking-wider mb-6">Contact & Links</h2>
+                <div class="space-y-4">
+                    <p class="text-sm text-gray-600 dark:text-gray-300 font-light mb-4">
+                        The preferred method of contact is email. I typically respond within 24–48 hours for academic and research inquiries.
+                    </p>
+                    
+                    <ul class="space-y-3">
+                        <li>
+                            <a href="#" class="flex items-center gap-3 text-sm text-gray-600 dark:text-gray-400 hover:text-medicalNavy dark:hover:text-white transition-colors group">
+                                <i class="ph ph-envelope-simple text-lg text-gray-400 group-hover:text-medicalNavy dark:group-hover:text-white"></i>
+                                johndoe@meduniversity.edu
+                            </a>
+                        </li>
+                        <li>
+                            <a href="#" class="flex items-center gap-3 text-sm text-gray-600 dark:text-gray-400 hover:text-medicalNavy dark:hover:text-white transition-colors group">
+                                <i class="ph ph-linkedin-logo text-lg text-gray-400 group-hover:text-medicalNavy dark:group-hover:text-white"></i>
+                                LinkedIn Profile
+                            </a>
+                        </li>
+                        <li>
+                            <a href="#" class="flex items-center gap-3 text-sm text-gray-600 dark:text-gray-400 hover:text-medicalNavy dark:hover:text-white transition-colors group">
+                                <i class="ph ph-graduation-cap text-lg text-gray-400 group-hover:text-medicalNavy dark:group-hover:text-white"></i>
+                                Google Scholar
+                            </a>
+                        </li>
+                        <li>
+                            <a href="#" class="flex items-center gap-3 text-sm text-gray-600 dark:text-gray-400 hover:text-medicalNavy dark:hover:text-white transition-colors group">
+                                <i class="ph ph-barcode text-lg text-gray-400 group-hover:text-medicalNavy dark:group-hover:text-white"></i>
+                                ORCID: 0000-0000-0000-0000
+                            </a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+
+        </div>
+    </section>
+
+    <!-- Footer (Minimal) -->
+    <footer class="bg-white dark:bg-darkBg border-t border-borderLight dark:border-borderDark py-8 text-center">
+        <p class="text-sm text-gray-500 dark:text-gray-400 font-light">
+            &copy; 2026 Dr. John Doe, MBBS. Prepared for academic review.
+        </p>
+    </footer>
+
+    <!-- Scripts -->
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            
+            /* --- Dark Mode Logic --- */
+            const darkModeToggle = document.getElementById('darkModeToggle');
+            const htmlElement = document.documentElement;
+            const moonIcon = document.getElementById('theme-icon-moon');
+            const sunIcon = document.getElementById('theme-icon-sun');
+
+            if (localStorage.getItem('color-theme') === 'dark' || (!('color-theme' in localStorage) && window.matchMedia('(prefers-color-scheme: dark)').matches)) {
+                htmlElement.classList.add('dark');
+                moonIcon.classList.add('hidden');
+                sunIcon.classList.remove('hidden');
+            } else {
+                htmlElement.classList.remove('dark');
+            }
+
+            darkModeToggle.addEventListener('click', () => {
+                htmlElement.classList.toggle('dark');
+                if (htmlElement.classList.contains('dark')) {
+                    localStorage.setItem('color-theme', 'dark');
+                    moonIcon.classList.add('hidden');
+                    sunIcon.classList.remove('hidden');
+                } else {
+                    localStorage.setItem('color-theme', 'light');
+                    sunIcon.classList.add('hidden');
+                    moonIcon.classList.remove('hidden');
+                }
+            });
+
+            /* --- Subtle Reveal Motion Observer --- */
+            const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+            if (!prefersReducedMotion) {
+                const observer = new IntersectionObserver((entries, observer) => {
+                    entries.forEach(entry => {
+                        if (entry.isIntersecting) {
+                            entry.target.classList.add('is-visible');
+                            observer.unobserve(entry.target); 
+                        }
+                    });
+                }, { root: null, rootMargin: '0px', threshold: 0.1 });
+
+                document.querySelectorAll('.reveal-on-scroll').forEach(el => observer.observe(el));
+            } else {
+                document.querySelectorAll('.reveal-on-scroll').forEach(el => {
+                    el.style.opacity = '1';
+                    el.style.transform = 'none';
+                });
+            }
+
+            /* --- Subtle Scroll Spy --- */
+            const sections = document.querySelectorAll('.section-scroll');
+            const navLinks = document.querySelectorAll('.nav-link');
+
+            const spyObserver = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        const id = entry.target.getAttribute('id');
+                        navLinks.forEach(link => {
+                            link.classList.remove('active');
+                            if (link.getAttribute('href') === `#${id}`) link.classList.add('active');
+                        });
+                    }
+                });
+            }, { root: null, rootMargin: '-40% 0px -60% 0px', threshold: 0 });
+
+            sections.forEach(section => { if(section.id) spyObserver.observe(section); });
+        });
+    </script>
 </body>
-
 </html>
